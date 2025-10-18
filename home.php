@@ -1,11 +1,27 @@
 <?php get_header(); ?>
 
-<main><h2>Digital School</h2>
-    <?php if(have_posts()): while (have_posts()): the_post();?>
-    <h2><?php the_title();?></h2>
-    <p><?php the_content()?></p>
-    <?php endwhile; endif; ?>
+<main class="blog-list">
+    <h1 class="blog-title">Latest Blog Posts</h1>
+    <?php if(have_posts()  ) :?>
+    <?php while(have_posts() ): the_post(); ?>
+        <article <?php  post_class('blog-item')?>>
+            <h2 class="blog-item-title">
+                <a href="<?php the_permalink(); ?>"><?php the_title();?></a>
+            </h2>
+        
+            <p class="blog-item_excerpt">
+                <?php the_excerpt(); ?>
+            </p>
+        </article>
+        <?php  endwhile;?>
+
+        <nav class="pagination">
+            <?php the_posts_pagination();?>
+        </nav>
 
 
+    <?php else:  ?>
+        <p>Nos Posts Found!</p>
+    <?php endif;?>
 </main>
 <?php get_footer(); ?>
